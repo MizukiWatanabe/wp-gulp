@@ -1,0 +1,8 @@
+.test {
+  &__test {
+    color: blueviolet;
+    &::after {
+      content: "how to go";
+    }
+  }
+}
