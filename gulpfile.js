@@ -27,9 +27,11 @@ const compSass = () => {
       })
       .pipe(
         plumber({
-          errorHandler: notify.onError('Error:<%= error.message %>'),
+          // plumberのエラー表示(notify)
+          errorHandler: notify.onError('Error!!:<%= error.message %>'),
         })
       )
+      // コンパイル時のスタイル設定
       .pipe(sass({ outputStyle: 'expanded' }))
       // 保存先のファイルの指定
       .pipe(gulp.dest(destPath.css), { sourcemaps: './' })
