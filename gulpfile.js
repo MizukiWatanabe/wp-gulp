@@ -1,13 +1,19 @@
 // gulpの読み込み
 const gulp = require('gulp');
 // Sass読み込み
-const sass = require('gulp-dart-sass');
+const dartSass = require('gulp-dart-sass');
 // browser-syncの読み込み
 const browserSync = require('browser-sync');
 // エラー時に終了させないための機能
 const plumber = require('gulp-plumber');
 // エラー発生時のアラート出力
 const notify = require('gulp-notify');
+// postcss autoprefixerを使うときに必要
+// var postcss = require('gulp-postcss');
+// // autoprefixer
+// const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 
 const srcPath = {
   css: './assets/scss/**/*.scss',
@@ -32,17 +38,26 @@ const compSass = () => {
         })
       )
       // コンパイル時のスタイル設定
-      .pipe(sass({ outputStyle: 'expanded' }))
+      .pipe(dartSass({ outputStyle: 'expanded' }))
+      .pipe(
+        postcss([
+          autoprefixer({
+            // ブラウザ指定はpackage.jsonに
+            cascade: false,
+            grid: true,
+          }),
+        ])
+      )
       // 保存先のファイルの指定
       .pipe(gulp.dest(destPath.css), { sourcemaps: './' })
       .pipe(browserSync.stream())
-      .pipe(
-        notify({
-          // メッセージの出力
-          message: 'sass compiled',
-          onLast: true,
-        })
-      )
+    // .pipe(
+    //   notify({
+    //     // メッセージの出力
+    //     message: 'compile!',
+    //     onLast: true,
+    //   })
+    // )
   );
 };
 
