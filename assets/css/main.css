@@ -2,10 +2,9 @@
   color: blueviolet;
 }
 .test__test::after {
-  content: 'how to know';
+  content: 'test';
 }
 
 html a {
   color: red;
-  list-style: none;
 }

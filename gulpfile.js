@@ -10,7 +10,7 @@ const plumber = require('gulp-plumber');
 const notify = require('gulp-notify');
 
 const srcPath = {
-  css: './assets/scss/*',
+  css: './assets/scss/**/*.scss',
   php: './**/*.php',
 };
 
